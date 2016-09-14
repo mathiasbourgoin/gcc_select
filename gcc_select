@@ -1,0 +1,30 @@
+#!/bin/bash
+
+
+cd /usr/bin/
+echo "Please choose which gcc do you want to use (* currently selected)"
+while true; do
+    cpt=0;
+    
+    GCC_list=`ls gcc-[0-9]*`
+    for i in $GCC_list ; do
+	if [ "$i" =  `readlink gcc` ];  then
+	    x=*
+	fi;
+	echo "[$cpt] : [$i] $x";
+	cpt=$(($cpt + 1));
+    done;
+    arr=( $GCC_list )
+    read a
+    if [ $a -eq $a 2> /dev/null ]; then
+	if [ -z $a ] || [ $a -ge $cpt ]; then
+	    echo "Choice must be a number between 0 and $a, retry..."
+	else
+	    ln -sf ${arr[$a]} `which gcc`
+	    exit
+	fi;
+    else
+	echo "Choice must be a number between 0 and $a, retry..."
+    fi
+done
+

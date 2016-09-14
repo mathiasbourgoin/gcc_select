@@ -5,9 +5,9 @@ cd /usr/bin/
 echo "Please choose which gcc do you want to use (* currently selected)"
 while true; do
     cpt=0;
-    
     GCC_list=`ls gcc-[0-9]*`
     for i in $GCC_list ; do
+	x=""
 	if [ "$i" =  `readlink gcc` ];  then
 	    x=*
 	fi;
